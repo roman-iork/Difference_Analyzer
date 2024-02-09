@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
+    id 'com.github.ben-manes.versions' version '0.51.0'
 }
 
 group = 'hexlet.code'
@@ -11,10 +13,11 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
     implementation 'info.picocli:picocli:4.7.5'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.16.1'
+    //implementation 'com.puppycrawl.tools:checkstyle:10.13.0'
 }
 
 test {

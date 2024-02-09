@@ -19,8 +19,8 @@ public class Differ {
 //        objectMapper.writeValue(new File("/home/iork_ubuntu_user/Java projects/For Hexlet/differ.json"), differ);
         Path src1 = Paths.get(filepath1);
         Path src2 = Paths.get(filepath2);
-        Map<String,Object> before = objectMapper.readValue(src1.toFile(), new TypeReference<>(){});
-        Map<String,Object> after = objectMapper.readValue(src2.toFile(), new TypeReference<>(){});
+        Map<String, Object> before = objectMapper.readValue(src1.toFile(), new TypeReference<>() { });
+        Map<String, Object> after = objectMapper.readValue(src2.toFile(), new TypeReference<>() { });
         //here I make list of unique keys of two maps/files
         List<String> keysBefore = before.keySet().stream().sorted().toList();
         List<String> keysAfter = after.keySet().stream().sorted().toList();
