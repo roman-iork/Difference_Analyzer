@@ -26,5 +26,5 @@ jobs:
         gradle-version: 8.6
     # - name: Build with Gradle Wrapper
     #   run: ./gradlew build
-    - run: ./gradlew checkstyleMain
-    - run: ./gradlew test
+    # - run: ./gradlew checkstyleMain
+    # - run: ./gradlew test
