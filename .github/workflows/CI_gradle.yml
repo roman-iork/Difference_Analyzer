@@ -33,9 +33,9 @@ jobs:
       # Set CC_TEST_REPORTER_ID as secret of your repo
         CC_TEST_REPORTER_ID: ${{secrets.CdCl_TEST_REPORTER_ID}}
         JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
-        workingDirectory: "${{github.workspace}}/app"
       with:
       # The report file must be there, otherwise Code Climate won't find it
+        workingDirectory: "${{github.workspace}}/app"
         coverageCommand: make report
       #coverageLocations: ${{github.workspace}}/target/site/jacoco/jacoco.xml:jacoco
         coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
