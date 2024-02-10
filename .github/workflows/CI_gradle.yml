@@ -86,5 +86,5 @@ jobs:
         CC_TEST_REPORTER_ID: ${{secrets.CdCl_TEST_REPORTER_ID}}
         JACOCO_SOURCE_PATH: src/main/java
       with:
-        coverageCommand: make report
+        coverageCommand: jacocoTestReport
         coverageLocations: ${{github.workspace}}/build/reports/tests/test/index.html:jacoco
