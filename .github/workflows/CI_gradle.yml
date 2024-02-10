@@ -4,9 +4,9 @@ on:
   - push
   - pull_request
   
-defaults:
-  run:
-    working-directory: ./app
+#defaults:
+#  run:
+#    working-directory: ./app
 
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
       uses: gradle/actions/setup-gradle@v3
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-      #working-directory: ./app
+      working-directory: ./app
     
   code-coverage:
     runs-on: ubuntu-latest
