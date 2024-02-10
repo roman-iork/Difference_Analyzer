@@ -15,8 +15,6 @@ public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
         //here I convert json to map
         var objectMapper = new ObjectMapper();
-//        var differ = new Differ("green", "light");
-//        objectMapper.writeValue(new File("/home/iork_ubuntu_user/Java projects/For Hexlet/differ.json"), differ);
         Path src1 = Paths.get(filepath1);
         Path src2 = Paths.get(filepath2);
         Map<String, Object> before = objectMapper.readValue(src1.toFile(), new TypeReference<>() { });
@@ -27,9 +25,13 @@ public class Differ {
         Set<String> allKeysSet = new HashSet<>(keysBefore);
         allKeysSet.addAll(keysAfter);
         List<String> sortedAllKeysSet = allKeysSet.stream().sorted().toList();
-        //here I'm going to build the final string
+        //in return I build the final string
+        return difference(before, after, sortedAllKeysSet);
+    }
+
+    private static String difference(Map<String, Object> before, Map<String, Object> after, List<String> keys) {
         StringBuilder sb = new StringBuilder("{\n");
-        for (String key : sortedAllKeysSet) {
+        for (String key : keys) {
             if (before.containsKey(key) && !after.containsKey(key)) {
                 sb.append("  - " + key + ": " + before.get(key).toString() + "\n");
             } else if (!before.containsKey(key) && after.containsKey(key)) {
