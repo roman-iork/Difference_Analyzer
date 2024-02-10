@@ -27,12 +27,15 @@ jobs:
   code-coverage:
     runs-on: ubuntu-latest
     steps:
-    - name: Publish code coverage
+    - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v5.0.0
       env:
+      # Set CC_TEST_REPORTER_ID as secret of your repo
         CC_TEST_REPORTER_ID: ${{secrets.CdCl_TEST_REPORTER_ID}}
-        JACOCO_SOURCE_PATH: ./app/src/main/java
+        JACOCO_SOURCE_PATH: "${{github.workspace}}/src/main/java"
       with:
-        #workingDirectory: /home/runner/work/java-project-71/java-project-71/app
+      # The report file must be there, otherwise Code Climate won't find it
         coverageCommand: make report
+      #coverageLocations: ${{github.workspace}}/target/site/jacoco/jacoco.xml:jacoco
         coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+      
