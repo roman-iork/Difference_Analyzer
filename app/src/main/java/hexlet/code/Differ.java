@@ -36,13 +36,11 @@ public class Differ {
                 sb.append("  - " + key + ": " + before.get(key).toString() + "\n");
             } else if (!before.containsKey(key) && after.containsKey(key)) {
                 sb.append("  + " + key + ": " + after.get(key).toString() + "\n");
-            } else {
-                if (before.get(key).equals(after.get(key))) {
-                    sb.append("    " + key + ": " + before.get(key).toString() + "\n");
-                } else {
-                    sb.append("  - " + key + ": " + before.get(key).toString() + "\n");
-                    sb.append("  + " + key + ": " + after.get(key).toString() + "\n");
-                }
+            } else if (before.get(key).equals(after.get(key))) {
+                sb.append("    " + key + ": " + before.get(key).toString() + "\n");
+            } else if (!before.get(key).equals(after.get(key))){
+                sb.append("  - " + key + ": " + before.get(key).toString() + "\n");
+                sb.append("  + " + key + ": " + after.get(key).toString() + "\n");
             }
         }
         sb.append("}");
