@@ -32,15 +32,17 @@ public class Differ {
     private static String difference(Map<String, Object> before, Map<String, Object> after, List<String> keys) {
         StringBuilder sb = new StringBuilder("{\n");
         for (String key : keys) {
+            String beforeValue = before.getOrDefault(key, "not in Map").toString();
+            String afterValue = after.getOrDefault(key, "not in Map").toString();
             if (before.containsKey(key) && !after.containsKey(key)) {
-                sb.append("  - " + key + ": " + before.get(key).toString() + "\n");
+                sb.append("  - " + key + ": " + beforeValue + "\n");
             } else if (!before.containsKey(key) && after.containsKey(key)) {
-                sb.append("  + " + key + ": " + after.get(key).toString() + "\n");
+                sb.append("  + " + key + ": " + afterValue + "\n");
             } else if (before.get(key).equals(after.get(key))) {
-                sb.append("    " + key + ": " + before.get(key).toString() + "\n");
-            } else if (!before.get(key).equals(after.get(key))){
-                sb.append("  - " + key + ": " + before.get(key).toString() + "\n");
-                sb.append("  + " + key + ": " + after.get(key).toString() + "\n");
+                sb.append("    " + key + ": " + beforeValue + "\n");
+            } else {
+                sb.append("  - " + key + ": " + beforeValue + "\n");
+                sb.append("  + " + key + ": " + afterValue + "\n");
             }
         }
         sb.append("}");
