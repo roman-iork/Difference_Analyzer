@@ -76,6 +76,10 @@ jobs:
       with:
         build-root-directory: ./app
 
+  code-coverage:
+
+    runs-on: ubuntu-latest
+    steps:
     - name: Publish code coverage
       uses: paambaati/codeclimate-action@v5.0.0
       env:
