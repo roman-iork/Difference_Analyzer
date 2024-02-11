@@ -47,4 +47,13 @@ class DifferTest {
         String actual = Differ.generate(pathEmpty, path2);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testGenerateEmptyBoth() throws Exception {
+        String expected = "{\n"
+                + ""
+                + "}";
+        String actual = Differ.generate(pathEmpty, pathEmpty);
+        assertEquals(expected, actual);
+    }
 }
