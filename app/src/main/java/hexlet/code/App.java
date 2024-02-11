@@ -29,8 +29,6 @@ public class App implements Callable<String> {
         return "";
     }
 
-    private final static String PATH_JSON = "src/test/resources/empty.yaml";
-    private final static String PATH_YAML = "src/test/resources/after3.json";
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);

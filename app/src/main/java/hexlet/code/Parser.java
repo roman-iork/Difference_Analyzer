@@ -19,7 +19,7 @@ public class Parser {
         } else if (filepath.endsWith(".yml")) {
             mapper = new YAMLMapper();
         } else {
-            throw new Exception("Check extention");
+            throw new Exception("Check extension");
         }
         Path source = Paths.get(filepath);
         if (Files.size(source) ==  0) {
