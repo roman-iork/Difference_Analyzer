@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
 
-    private static String path1 = "src/test/resources/before1.json";
-    private static String path2 = "src/test/resources/after1.json";
-    private static String pathEmpty = "src/test/resources/empty.json";
+    private final String PATH_BEFORE = "src/test/resources/before.";
+    private final String PATH_AFTER = "src/test/resources/after.";
+    private final String PATH_EMPTY = "src/test/resources/empty.";
 
     @Test
     public void testGenerateNormal() throws Exception {
@@ -20,7 +20,9 @@ class DifferTest {
                 + "  - time: 12\n"
                 + "  + time: 15\n"
                 + "}";
-        String actual = Differ.generate(path1, path2);
+        String actual = Differ.generate(json(PATH_BEFORE), json(PATH_AFTER));
+        assertEquals(expected, actual);
+        actual = Differ.generate(yml(PATH_BEFORE), yml(PATH_AFTER));
         assertEquals(expected, actual);
     }
 
@@ -32,7 +34,9 @@ class DifferTest {
                 + "  - car: true\n"
                 + "  - time: 12\n"
                 + "}";
-        String actual = Differ.generate(path1, pathEmpty);
+        String actual = Differ.generate(json(PATH_BEFORE), json(PATH_EMPTY));
+        assertEquals(expected, actual);
+        actual = Differ.generate(yml(PATH_BEFORE), yml(PATH_EMPTY));
         assertEquals(expected, actual);
     }
 
@@ -44,16 +48,27 @@ class DifferTest {
                 + "  + car: true\n"
                 + "  + time: 15\n"
                 + "}";
-        String actual = Differ.generate(pathEmpty, path2);
+        String actual = Differ.generate(json(PATH_EMPTY), json(PATH_AFTER));
+        assertEquals(expected, actual);
+        actual = Differ.generate(yml(PATH_EMPTY), yml(PATH_AFTER));
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGenerateEmptyBoth() throws Exception {
         String expected = "{\n"
-                + ""
                 + "}";
-        String actual = Differ.generate(pathEmpty, pathEmpty);
+        String actual = Differ.generate(json(PATH_EMPTY), json(PATH_EMPTY));
         assertEquals(expected, actual);
+        actual = Differ.generate(yml(PATH_EMPTY), yml(PATH_EMPTY));
+        assertEquals(expected, actual);
+    }
+
+    private static String json(String path) {
+        return path + "json";
+    }
+
+    private static String yml(String path) {
+        return path + "yml";
     }
 }
