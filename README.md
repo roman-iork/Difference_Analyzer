@@ -15,3 +15,6 @@
 
 ##### Link to asciinema record Hexlet *Diff Analizer* **Step 7**
 [![asciicast](https://asciinema.org/a/eoW3Lj2wjShgDXDGFg87jCUEb.svg)](https://asciinema.org/a/eoW3Lj2wjShgDXDGFg87jCUEb)
+
+##### Link to asciinema record Hexlet *Diff Analizer* **Step 8**
+[![asciicast](https://asciinema.org/a/Fw3Bfg8PFE58xbMhRBcuTIC0h.svg)](https://asciinema.org/a/Fw3Bfg8PFE58xbMhRBcuTIC0h)

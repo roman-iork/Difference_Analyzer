@@ -1,6 +1,10 @@
 {
   "banana": "yellow",
-  "car": true,
-  "time": 15,
-  "animal": "cat"
+  "car": false,
+  "time": null,
+  "animal": "cat",
+  "sky": ["summer", "autumn"],
+  "what": true,
+  "tree": {"oak": 7, "pine": true, "birch": [true, 14, "spring"]},
+  "shop": ["food", "shoes"]
 }
