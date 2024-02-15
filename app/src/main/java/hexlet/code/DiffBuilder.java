@@ -1,13 +1,16 @@
 package hexlet.code;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class DiffBuilder {
-    public static Map<String, List<Object>> buildDiff(Map<String, Object> before, Map<String, Object> after,
-                                                      List<String> keys) {
+    public static Map<String, List<Object>> buildDiff(Map<String, Object> before, Map<String, Object> after) {
+        List<String> keys = sortedAllkeysSet(before, after);
         Map<String, List<Object>> difference = new LinkedHashMap<>();
         for (String key : keys) {
             List<Object> value = new ArrayList<>();
@@ -34,5 +37,14 @@ public class DiffBuilder {
             }
         }
         return difference;
+    }
+
+    private static List<String> sortedAllkeysSet(Map<String, Object> before, Map<String, Object> after) {
+        //here I make list of unique keys of two maps
+        List<String> keysBefore = before.keySet().stream().sorted().toList();
+        List<String> keysAfter = after.keySet().stream().sorted().toList();
+        Set<String> allKeysSet = new HashSet<>(keysBefore);
+        allKeysSet.addAll(keysAfter);
+        return allKeysSet.stream().sorted().toList();
     }
 }
