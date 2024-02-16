@@ -8,9 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Parser {
-    public static LinkedHashMap<String, Object> parseSource(String filepath) throws Exception {
+    public static LinkedHashMap<String, Object> parseToJvObj(String filepath) throws Exception {
         ObjectMapper mapper;
         //choose mapper
         if (filepath.endsWith(".json")) {
@@ -25,5 +27,9 @@ public class Parser {
             return new LinkedHashMap<>();
         }
         return mapper.readValue(source.toFile(), new TypeReference<>() { });
+    }
+    public static String  parseFromJvObj(Map.Entry<String, List<Object>> data) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(data);
     }
 }

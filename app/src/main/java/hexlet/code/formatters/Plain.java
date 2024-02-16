@@ -25,9 +25,10 @@ public class Plain implements FormatterType {
     }
 
     String convertedValue(Object value) {
+
         if (value == null) {
             return null;
-        } else if (value.getClass().isInstance(1)) {
+        } else if (value.getClass().getSuperclass().toString().endsWith("Number")) {
             return value.toString();
         } else if (value.getClass().isInstance("str")) {
             return "'" + value + "'";

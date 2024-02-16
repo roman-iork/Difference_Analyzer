@@ -1,7 +1,7 @@
 {
   "apple": "green",
   "car": true,
-  "time": 12,
+  "time": 12.4,
   "animal": "cat",
   "a": {"four": 4, "milk": false, "list": [1, 2, 3]},
   "sky": ["summer", "autumn"],

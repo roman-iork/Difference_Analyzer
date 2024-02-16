@@ -21,7 +21,7 @@ class DifferTest {
                 + "  + car: false\n"
                 + "  + shop: [food, shoes]\n"
                 + "    sky: [summer, autumn]\n"
-                + "  - time: 12\n"
+                + "  - time: 12.4\n"
                 + "  + time: null\n"
                 + "  + tree: {oak=7, pine=true, birch=[true, 14, spring]}\n"
                 + "  - what: null\n"
@@ -32,9 +32,21 @@ class DifferTest {
                 + "Property 'banana' was added with value: 'yellow'\n"
                 + "Property 'car' was updated. From true to false\n"
                 + "Property 'shop' was added with value: [complex value]\n"
-                + "Property 'time' was updated. From 12 to null\n"
+                + "Property 'time' was updated. From 12.4 to null\n"
                 + "Property 'tree' was added with value: [complex value]\n"
                 + "Property 'what' was updated. From null to true";
+        String expected3 = "{\n"
+                + "  \"a\":[\"removed\",{\"four\":4,\"milk\":false,\"list\":[1,2,3]}],\n"
+                + "  \"animal\":[\"unchanged\",\"cat\"],\n"
+                + "  \"apple\":[\"removed\",\"green\"],\n"
+                + "  \"banana\":[\"added\",\"yellow\"],\n"
+                + "  \"car\":[\"changed\",true,false],\n"
+                + "  \"shop\":[\"added\",[\"food\",\"shoes\"]],\n"
+                + "  \"sky\":[\"unchanged\",[\"summer\",\"autumn\"]],\n"
+                + "  \"time\":[\"changed\",12.4,null],\n"
+                + "  \"tree\":[\"added\",{\"oak\":7,\"pine\":true,\"birch\":[true,14,\"spring\"]}],\n"
+                + "  \"what\":[\"changed\",null,true]\n"
+                + "}";
         String actual = Differ.generate(json(pathBefore), json(pathAfter), "stylish");
         assertEquals(expected1, actual);
         actual = Differ.generate(yml(pathBefore), yml(pathAfter), "stylish");
@@ -43,6 +55,10 @@ class DifferTest {
         assertEquals(expected2, actual);
         actual = Differ.generate(yml(pathBefore), yml(pathAfter), "plain");
         assertEquals(expected2, actual);
+        actual = Differ.generate(json(pathBefore), json(pathAfter), "json");
+        assertEquals(expected3, actual);
+        actual = Differ.generate(yml(pathBefore), yml(pathAfter), "json");
+        assertEquals(expected3, actual);
     }
 
     @Test
@@ -53,7 +69,7 @@ class DifferTest {
                 + "  - apple: green\n"
                 + "  - car: true\n"
                 + "  - sky: [summer, autumn]\n"
-                + "  - time: 12\n"
+                + "  - time: 12.4\n"
                 + "  - what: null\n"
                 + "}";
         String expected2 = "Property 'a' was removed\n"
@@ -63,6 +79,15 @@ class DifferTest {
                 + "Property 'sky' was removed\n"
                 + "Property 'time' was removed\n"
                 + "Property 'what' was removed";
+        String expected3 = "{\n"
+                + "  \"a\":[\"removed\",{\"four\":4,\"milk\":false,\"list\":[1,2,3]}],\n"
+                + "  \"animal\":[\"removed\",\"cat\"],\n"
+                + "  \"apple\":[\"removed\",\"green\"],\n"
+                + "  \"car\":[\"removed\",true],\n"
+                + "  \"sky\":[\"removed\",[\"summer\",\"autumn\"]],\n"
+                + "  \"time\":[\"removed\",12.4],\n"
+                + "  \"what\":[\"removed\",null]\n"
+                + "}";
         String actual = Differ.generate(json(pathBefore), json(pathEmpty), "stylish");
         assertEquals(expected1, actual);
         actual = Differ.generate(yml(pathBefore), yml(pathEmpty), "stylish");
@@ -71,6 +96,10 @@ class DifferTest {
         assertEquals(expected2, actual);
         actual = Differ.generate(yml(pathBefore), yml(pathEmpty), "plain");
         assertEquals(expected2, actual);
+        actual = Differ.generate(json(pathBefore), json(pathEmpty), "json");
+        assertEquals(expected3, actual);
+        actual = Differ.generate(yml(pathBefore), yml(pathEmpty), "json");
+        assertEquals(expected3, actual);
     }
 
     @Test
@@ -93,6 +122,16 @@ class DifferTest {
                 + "Property 'time' was added with value: null\n"
                 + "Property 'tree' was added with value: [complex value]\n"
                 + "Property 'what' was added with value: true";
+        String expected3 = "{\n"
+                + "  \"animal\":[\"added\",\"cat\"],\n"
+                + "  \"banana\":[\"added\",\"yellow\"],\n"
+                + "  \"car\":[\"added\",false],\n"
+                + "  \"shop\":[\"added\",[\"food\",\"shoes\"]],\n"
+                + "  \"sky\":[\"added\",[\"summer\",\"autumn\"]],\n"
+                + "  \"time\":[\"added\",null],\n"
+                + "  \"tree\":[\"added\",{\"oak\":7,\"pine\":true,\"birch\":[true,14,\"spring\"]}],\n"
+                + "  \"what\":[\"added\",true]\n"
+                + "}";
         String actual = Differ.generate(json(pathEmpty), json(pathAfter), "stylish");
         assertEquals(expected1, actual);
         actual = Differ.generate(yml(pathEmpty), yml(pathAfter), "stylish");
@@ -101,6 +140,10 @@ class DifferTest {
         assertEquals(expected2, actual);
         actual = Differ.generate(yml(pathEmpty), yml(pathAfter), "plain");
         assertEquals(expected2, actual);
+        actual = Differ.generate(json(pathEmpty), json(pathAfter), "json");
+        assertEquals(expected3, actual);
+        actual = Differ.generate(yml(pathEmpty), yml(pathAfter), "json");
+        assertEquals(expected3, actual);
     }
 
     @Test
@@ -116,6 +159,10 @@ class DifferTest {
         assertEquals(expected2, actual);
         actual = Differ.generate(yml(pathEmpty), yml(pathEmpty), "plain");
         assertEquals(expected2, actual);
+        actual = Differ.generate(json(pathEmpty), json(pathEmpty), "json");
+        assertEquals(expected1, actual);
+        actual = Differ.generate(yml(pathEmpty), yml(pathEmpty), "json");
+        assertEquals(expected1, actual);
     }
 
     private static String json(String path) {
