@@ -3,7 +3,7 @@ package hexlet.code.formatters;
 import java.util.List;
 import java.util.Map;
 
-public class Stylish implements FormatterType {
+public final class Stylish implements FormatterType {
 
     private Map<String, List<Object>> difference;
     public String format() {

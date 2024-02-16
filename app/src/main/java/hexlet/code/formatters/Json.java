@@ -5,7 +5,7 @@ import hexlet.code.Parser;
 import java.util.List;
 import java.util.Map;
 
-public class Json implements FormatterType {
+public final class Json implements FormatterType {
 
     private Map<String, List<Object>> difference;
     public String format() throws Exception {
