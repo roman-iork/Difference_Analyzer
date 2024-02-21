@@ -28,8 +28,13 @@ public class Parser {
         }
         return mapper.readValue(source.toFile(), new TypeReference<>() { });
     }
-    public static String  parseFromJvObj(Map.Entry<String, List<Object>> data) throws Exception {
+    public static String parseFromJvObj(Map.Entry<String, List<Object>> data) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(data);
+    }
+
+    public static String parseFromTextFile(String path) throws Exception {
+        Path pathAsObject = Paths.get(path);
+        return Files.readString(pathAsObject);
     }
 }

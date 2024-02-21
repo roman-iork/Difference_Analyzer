@@ -1,0 +1,10 @@
+{
+  + animal: cat
+  + banana: yellow
+  + car: false
+  + shop: [food, shoes]
+  + sky: [summer, autumn]
+  + time: null
+  + tree: {oak=7, pine=true, birch=[true, 14, spring]}
+  + what: true
+}

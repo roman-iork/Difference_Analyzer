@@ -1,0 +1,8 @@
+Property 'animal' was added with value: 'cat'
+Property 'banana' was added with value: 'yellow'
+Property 'car' was added with value: false
+Property 'shop' was added with value: [complex value]
+Property 'sky' was added with value: [complex value]
+Property 'time' was added with value: null
+Property 'tree' was added with value: [complex value]
+Property 'what' was added with value: true

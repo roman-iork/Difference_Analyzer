@@ -1,0 +1,9 @@
+{
+  "a":["removed",{"four":4,"milk":false,"list":[1,2,3]}],
+  "animal":["removed","cat"],
+  "apple":["removed","green"],
+  "car":["removed",true],
+  "sky":["removed",["summer","autumn"]],
+  "time":["removed",12.4],
+  "what":["removed",null]
+}

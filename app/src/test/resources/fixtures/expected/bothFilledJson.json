@@ -1,0 +1,12 @@
+{
+  "a":["removed",{"four":4,"milk":false,"list":[1,2,3]}],
+  "animal":["unchanged","cat"],
+  "apple":["removed","green"],
+  "banana":["added","yellow"],
+  "car":["changed",true,false],
+  "shop":["added",["food","shoes"]],
+  "sky":["unchanged",["summer","autumn"]],
+  "time":["changed",12.4,null],
+  "tree":["added",{"oak":7,"pine":true,"birch":[true,14,"spring"]}],
+  "what":["changed",null,true]
+}

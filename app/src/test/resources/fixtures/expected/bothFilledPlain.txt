@@ -1,0 +1,8 @@
+Property 'a' was removed
+Property 'apple' was removed
+Property 'banana' was added with value: 'yellow'
+Property 'car' was updated. From true to false
+Property 'shop' was added with value: [complex value]
+Property 'time' was updated. From 12.4 to null
+Property 'tree' was added with value: [complex value]
+Property 'what' was updated. From null to true

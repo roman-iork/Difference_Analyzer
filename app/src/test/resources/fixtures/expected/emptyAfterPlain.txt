@@ -1,0 +1,7 @@
+Property 'a' was removed
+Property 'animal' was removed
+Property 'apple' was removed
+Property 'car' was removed
+Property 'sky' was removed
+Property 'time' was removed
+Property 'what' was removed

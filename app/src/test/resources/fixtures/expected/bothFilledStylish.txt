@@ -1,0 +1,15 @@
+{
+  - a: {four=4, milk=false, list=[1, 2, 3]}
+    animal: cat
+  - apple: green
+  + banana: yellow
+  - car: true
+  + car: false
+  + shop: [food, shoes]
+    sky: [summer, autumn]
+  - time: 12.4
+  + time: null
+  + tree: {oak=7, pine=true, birch=[true, 14, spring]}
+  - what: null
+  + what: true
+}

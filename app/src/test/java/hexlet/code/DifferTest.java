@@ -6,170 +6,148 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
 
-    private final String pathBefore = "src/test/resources/before.";
-    private final String pathAfter = "src/test/resources/after.";
-    private final String pathEmpty = "src/test/resources/empty.";
+    private final String sourceBefore = "src/test/resources/fixtures/before.";
+    private final String sourceAfter = "src/test/resources/fixtures/after.";
+    private final String sourceEmpty = "src/test/resources/fixtures/empty.";
+    private final String pathBlank = "src/test/resources/fixtures/expected/";
 
     @Test
-    public void testGenerateNormal() throws Exception {
-        String expected1 = "{\n"
-                + "  - a: {four=4, milk=false, list=[1, 2, 3]}\n"
-                + "    animal: cat\n"
-                + "  - apple: green\n"
-                + "  + banana: yellow\n"
-                + "  - car: true\n"
-                + "  + car: false\n"
-                + "  + shop: [food, shoes]\n"
-                + "    sky: [summer, autumn]\n"
-                + "  - time: 12.4\n"
-                + "  + time: null\n"
-                + "  + tree: {oak=7, pine=true, birch=[true, 14, spring]}\n"
-                + "  - what: null\n"
-                + "  + what: true\n"
-                + "}";
-        String expected2 = "Property 'a' was removed\n"
-                + "Property 'apple' was removed\n"
-                + "Property 'banana' was added with value: 'yellow'\n"
-                + "Property 'car' was updated. From true to false\n"
-                + "Property 'shop' was added with value: [complex value]\n"
-                + "Property 'time' was updated. From 12.4 to null\n"
-                + "Property 'tree' was added with value: [complex value]\n"
-                + "Property 'what' was updated. From null to true";
-        String expected3 = "{\n"
-                + "  \"a\":[\"removed\",{\"four\":4,\"milk\":false,\"list\":[1,2,3]}],\n"
-                + "  \"animal\":[\"unchanged\",\"cat\"],\n"
-                + "  \"apple\":[\"removed\",\"green\"],\n"
-                + "  \"banana\":[\"added\",\"yellow\"],\n"
-                + "  \"car\":[\"changed\",true,false],\n"
-                + "  \"shop\":[\"added\",[\"food\",\"shoes\"]],\n"
-                + "  \"sky\":[\"unchanged\",[\"summer\",\"autumn\"]],\n"
-                + "  \"time\":[\"changed\",12.4,null],\n"
-                + "  \"tree\":[\"added\",{\"oak\":7,\"pine\":true,\"birch\":[true,14,\"spring\"]}],\n"
-                + "  \"what\":[\"changed\",null,true]\n"
-                + "}";
-        String actual = Differ.generate(json(pathBefore), json(pathAfter), "stylish");
+    public void testGenerateStylishJson() throws Exception {
+        String expected1 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(json(sourceBefore), json(sourceAfter), "stylish");
         assertEquals(expected1, actual);
-        actual = Differ.generate(yml(pathBefore), yml(pathAfter), "stylish");
-        assertEquals(expected1, actual);
-        actual = Differ.generate(json(pathBefore), json(pathAfter), "plain");
+        String expected2 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(json(sourceBefore), json(sourceEmpty), "stylish");
         assertEquals(expected2, actual);
-        actual = Differ.generate(yml(pathBefore), yml(pathAfter), "plain");
-        assertEquals(expected2, actual);
-        actual = Differ.generate(json(pathBefore), json(pathAfter), "json");
+        String expected3 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(json(sourceEmpty), json(sourceAfter), "stylish");
         assertEquals(expected3, actual);
-        actual = Differ.generate(yml(pathBefore), yml(pathAfter), "json");
-        assertEquals(expected3, actual);
+        String expected4 = "{\n}";
+        actual = Differ.generate(json(sourceEmpty), json(sourceEmpty), "stylish");
+        assertEquals(expected4, actual);
     }
-
     @Test
-    public void testGenerateEmptyAfter() throws Exception {
-        String expected1 = "{\n"
-                + "  - a: {four=4, milk=false, list=[1, 2, 3]}\n"
-                + "  - animal: cat\n"
-                + "  - apple: green\n"
-                + "  - car: true\n"
-                + "  - sky: [summer, autumn]\n"
-                + "  - time: 12.4\n"
-                + "  - what: null\n"
-                + "}";
-        String expected2 = "Property 'a' was removed\n"
-                + "Property 'animal' was removed\n"
-                + "Property 'apple' was removed\n"
-                + "Property 'car' was removed\n"
-                + "Property 'sky' was removed\n"
-                + "Property 'time' was removed\n"
-                + "Property 'what' was removed";
-        String expected3 = "{\n"
-                + "  \"a\":[\"removed\",{\"four\":4,\"milk\":false,\"list\":[1,2,3]}],\n"
-                + "  \"animal\":[\"removed\",\"cat\"],\n"
-                + "  \"apple\":[\"removed\",\"green\"],\n"
-                + "  \"car\":[\"removed\",true],\n"
-                + "  \"sky\":[\"removed\",[\"summer\",\"autumn\"]],\n"
-                + "  \"time\":[\"removed\",12.4],\n"
-                + "  \"what\":[\"removed\",null]\n"
-                + "}";
-        String actual = Differ.generate(json(pathBefore), json(pathEmpty), "stylish");
+    public void testGenerateStylishYml() throws Exception {
+        String expected1 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(yml(sourceBefore), yml(sourceAfter), "stylish");
         assertEquals(expected1, actual);
-        actual = Differ.generate(yml(pathBefore), yml(pathEmpty), "stylish");
-        assertEquals(expected1, actual);
-        actual = Differ.generate(json(pathBefore), json(pathEmpty), "plain");
+        String expected2 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(yml(sourceBefore), yml(sourceEmpty), "stylish");
         assertEquals(expected2, actual);
-        actual = Differ.generate(yml(pathBefore), yml(pathEmpty), "plain");
-        assertEquals(expected2, actual);
-        actual = Differ.generate(json(pathBefore), json(pathEmpty), "json");
+        String expected3 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceAfter), "stylish");
         assertEquals(expected3, actual);
-        actual = Differ.generate(yml(pathBefore), yml(pathEmpty), "json");
-        assertEquals(expected3, actual);
+        String expected4 = "{\n}";
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceEmpty), "stylish");
+        assertEquals(expected4, actual);
     }
-
     @Test
-    public void testGenerateEmptyBefore() throws Exception {
-        String expected1 = "{\n"
-                + "  + animal: cat\n"
-                + "  + banana: yellow\n"
-                + "  + car: false\n"
-                + "  + shop: [food, shoes]\n"
-                + "  + sky: [summer, autumn]\n"
-                + "  + time: null\n"
-                + "  + tree: {oak=7, pine=true, birch=[true, 14, spring]}\n"
-                + "  + what: true\n"
-                + "}";
-        String expected2 = "Property 'animal' was added with value: 'cat'\n"
-                + "Property 'banana' was added with value: 'yellow'\n"
-                + "Property 'car' was added with value: false\n"
-                + "Property 'shop' was added with value: [complex value]\n"
-                + "Property 'sky' was added with value: [complex value]\n"
-                + "Property 'time' was added with value: null\n"
-                + "Property 'tree' was added with value: [complex value]\n"
-                + "Property 'what' was added with value: true";
-        String expected3 = "{\n"
-                + "  \"animal\":[\"added\",\"cat\"],\n"
-                + "  \"banana\":[\"added\",\"yellow\"],\n"
-                + "  \"car\":[\"added\",false],\n"
-                + "  \"shop\":[\"added\",[\"food\",\"shoes\"]],\n"
-                + "  \"sky\":[\"added\",[\"summer\",\"autumn\"]],\n"
-                + "  \"time\":[\"added\",null],\n"
-                + "  \"tree\":[\"added\",{\"oak\":7,\"pine\":true,\"birch\":[true,14,\"spring\"]}],\n"
-                + "  \"what\":[\"added\",true]\n"
-                + "}";
-        String actual = Differ.generate(json(pathEmpty), json(pathAfter), "stylish");
+    public void testGeneratePlainJson() throws Exception {
+        String expected1 = Parser.parseFromTextFile(txt(plainStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(json(sourceBefore), json(sourceAfter), "plain");
         assertEquals(expected1, actual);
-        actual = Differ.generate(yml(pathEmpty), yml(pathAfter), "stylish");
-        assertEquals(expected1, actual);
-        actual = Differ.generate(json(pathEmpty), json(pathAfter), "plain");
+        String expected2 = Parser.parseFromTextFile(txt(plainStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(json(sourceBefore), json(sourceEmpty), "plain");
         assertEquals(expected2, actual);
-        actual = Differ.generate(yml(pathEmpty), yml(pathAfter), "plain");
-        assertEquals(expected2, actual);
-        actual = Differ.generate(json(pathEmpty), json(pathAfter), "json");
+        String expected3 = Parser.parseFromTextFile(txt(plainStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(json(sourceEmpty), json(sourceAfter), "plain");
         assertEquals(expected3, actual);
-        actual = Differ.generate(yml(pathEmpty), yml(pathAfter), "json");
-        assertEquals(expected3, actual);
+        String expected4 = "";
+        actual = Differ.generate(json(sourceEmpty), json(sourceEmpty), "plain");
+        assertEquals(expected4, actual);
     }
-
     @Test
-    public void testGenerateEmptyBoth() throws Exception {
-        String expected1 = "{\n"
-                + "}";
-        String expected2 = "";
-        String actual = Differ.generate(json(pathEmpty), json(pathEmpty), "stylish");
+    public void testGeneratePlainYml() throws Exception {
+        String expected1 = Parser.parseFromTextFile(txt(plainStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(yml(sourceBefore), yml(sourceAfter), "plain");
         assertEquals(expected1, actual);
-        actual = Differ.generate(yml(pathEmpty), yml(pathEmpty), "stylish");
-        assertEquals(expected1, actual);
-        actual = Differ.generate(json(pathEmpty), json(pathEmpty), "plain");
+        String expected2 = Parser.parseFromTextFile(txt(plainStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(yml(sourceBefore), yml(sourceEmpty), "plain");
         assertEquals(expected2, actual);
-        actual = Differ.generate(yml(pathEmpty), yml(pathEmpty), "plain");
+        String expected3 = Parser.parseFromTextFile(txt(plainStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceAfter), "plain");
+        assertEquals(expected3, actual);
+        String expected4 = "";
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceEmpty), "plain");
+        assertEquals(expected4, actual);
+    }
+    @Test
+    public void testGenerateJsonJson() throws Exception {
+        String expected1 = Parser.parseFromTextFile(json(jsonStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(json(sourceBefore), json(sourceAfter), "json");
+        assertEquals(expected1, actual);
+        String expected2 = Parser.parseFromTextFile(json(jsonStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(json(sourceBefore), json(sourceEmpty), "json");
         assertEquals(expected2, actual);
-        actual = Differ.generate(json(pathEmpty), json(pathEmpty), "json");
+        String expected3 = Parser.parseFromTextFile(json(jsonStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(json(sourceEmpty), json(sourceAfter), "json");
+        assertEquals(expected3, actual);
+        String expected4 = "{\n}";
+        actual = Differ.generate(json(sourceEmpty), json(sourceEmpty), "json");
+        assertEquals(expected4, actual);
+    }
+    @Test
+    public void testGenerateJsonYml() throws Exception {
+        String expected1 = Parser.parseFromTextFile(json(jsonStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(yml(sourceBefore), yml(sourceAfter), "json");
         assertEquals(expected1, actual);
-        actual = Differ.generate(yml(pathEmpty), yml(pathEmpty), "json");
+        String expected2 = Parser.parseFromTextFile(json(jsonStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(yml(sourceBefore), yml(sourceEmpty), "json");
+        assertEquals(expected2, actual);
+        String expected3 = Parser.parseFromTextFile(json(jsonStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceAfter), "json");
+        assertEquals(expected3, actual);
+        String expected4 = "{\n}";
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceEmpty), "json");
+        assertEquals(expected4, actual);
+    }
+    @Test
+    public void testGenerateNoFormatJson() throws Exception {
+        String expected1 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(json(sourceBefore), json(sourceAfter));
         assertEquals(expected1, actual);
+        String expected2 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(json(sourceBefore), json(sourceEmpty));
+        assertEquals(expected2, actual);
+        String expected3 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(json(sourceEmpty), json(sourceAfter));
+        assertEquals(expected3, actual);
+        String expected4 = "{\n}";
+        actual = Differ.generate(json(sourceEmpty), json(sourceEmpty));
+        assertEquals(expected4, actual);
+    }
+    @Test
+    public void testGenerateNoFormatYml() throws Exception {
+        String expected1 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "bothFilled")));
+        String actual = Differ.generate(yml(sourceBefore), yml(sourceAfter));
+        assertEquals(expected1, actual);
+        String expected2 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyAfter")));
+        actual = Differ.generate(yml(sourceBefore), yml(sourceEmpty));
+        assertEquals(expected2, actual);
+        String expected3 = Parser.parseFromTextFile(txt(stylishStyle(pathBlank + "emptyBefore")));
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceAfter));
+        assertEquals(expected3, actual);
+        String expected4 = "{\n}";
+        actual = Differ.generate(yml(sourceEmpty), yml(sourceEmpty));
+        assertEquals(expected4, actual);
     }
 
-    private static String json(String path) {
-        return path + "json";
+    private static String json(String pathBlank) {
+        return pathBlank + "json";
     }
-
-    private static String yml(String path) {
-        return path + "yml";
+    private static String yml(String pathBlank) {
+        return pathBlank + "yml";
+    }
+    private static String txt(String pathBlank) {
+        return pathBlank + "txt";
+    }
+    private static String stylishStyle(String pathBlank) {
+        return pathBlank + "Stylish.";
+    }
+    private static String plainStyle(String pathBlank) {
+        return pathBlank + "Plain.";
+    }
+    private static String jsonStyle(String pathBlank) {
+        return pathBlank + "Json.";
     }
 }

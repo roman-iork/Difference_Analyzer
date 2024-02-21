@@ -1,0 +1,9 @@
+{
+  - a: {four=4, milk=false, list=[1, 2, 3]}
+  - animal: cat
+  - apple: green
+  - car: true
+  - sky: [summer, autumn]
+  - time: 12.4
+  - what: null
+}
