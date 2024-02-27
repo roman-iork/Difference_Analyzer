@@ -1,10 +1,1 @@
-{
-  "animal":["added","cat"],
-  "banana":["added","yellow"],
-  "car":["added",false],
-  "shop":["added",["food","shoes"]],
-  "sky":["added",["summer","autumn"]],
-  "time":["added",null],
-  "tree":["added",{"oak":7,"pine":true,"birch":[true,14,"spring"]}],
-  "what":["added",true]
-}
+{"animal":["added","cat"],"banana":["added","yellow"],"car":["added",false],"shop":["added",["food","shoes"]],"sky":["added",["summer","autumn"]],"time":["added",null],"tree":["added",{"oak":7,"pine":true,"birch":[true,14,"spring"]}],"what":["added",true]}

@@ -7,7 +7,7 @@ import hexlet.code.formatters.Stylish;
 
 public class Formatter {
 
-    public static FormatterType setFormat(String format) {
+    public static FormatterType getFormatterType(String format) {
         if (format.equals("plain")) {
             return new Plain();
         } else if (format.equals("json")) {

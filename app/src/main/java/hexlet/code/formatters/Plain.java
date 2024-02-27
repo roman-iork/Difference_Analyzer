@@ -5,8 +5,7 @@ import java.util.Map;
 
 public final class Plain implements FormatterType {
 
-    private Map<String, List<Object>> difference;
-    public String format() {
+    public String format(Map<String, List<Object>> difference) {
         StringBuilder sb = new StringBuilder();
         for (String key : difference.keySet()) {
             List<Object> value = difference.get(key);
@@ -24,21 +23,16 @@ public final class Plain implements FormatterType {
         return sb.toString().trim();
     }
 
-    String convertedValue(Object value) {
-
+    private String convertedValue(Object value) {
         if (value == null) {
             return null;
-        } else if (value.getClass().getSuperclass().toString().endsWith("Number")) {
+        } else if (value instanceof Number) {
             return value.toString();
-        } else if (value.getClass().isInstance("str")) {
+        } else if (value instanceof String) {
             return "'" + value + "'";
-        } else if (value.getClass().isInstance(true)) {
+        } else if (value instanceof Boolean) {
             return value.toString();
         }
         return "[complex value]";
-    }
-
-    public void setData(Map<String, List<Object>> data) {
-        difference = data;
     }
 }

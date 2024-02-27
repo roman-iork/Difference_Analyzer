@@ -5,8 +5,7 @@ import java.util.Map;
 
 public final class Stylish implements FormatterType {
 
-    private Map<String, List<Object>> difference;
-    public String format() {
+    public String format(Map<String, List<Object>> difference) {
         StringBuilder sb = new StringBuilder("{\n");
         for (String key : difference.keySet()) {
             List<Object> value = difference.get(key);
@@ -23,9 +22,5 @@ public final class Stylish implements FormatterType {
         }
         sb.append("}");
         return sb.toString();
-    }
-
-    public void setData(Map<String, List<Object>> data) {
-        difference = data;
     }
 }
