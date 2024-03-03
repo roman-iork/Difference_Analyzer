@@ -7,12 +7,16 @@ import hexlet.code.formatters.Stylish;
 
 public class Formatter {
 
-    public static FormatterType getFormatterType(String format) {
-        if (format.equals("plain")) {
-            return new Plain();
-        } else if (format.equals("json")) {
-            return new Json();
+    public static FormatterType getFormatterType(String format) throws Exception {
+        switch (format) {
+            case "stylish":
+                return new Stylish();
+            case "plain":
+                return new Plain();
+            case "json":
+                return new Json();
+            default:
+                throw new Exception("Check format");
         }
-        return new Stylish();
     }
 }
