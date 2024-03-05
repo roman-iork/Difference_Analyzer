@@ -86,7 +86,7 @@ class DifferTest {
         String expected3 = parseFromTextFile(json(jsonStyle(pathBlank + "emptyBefore")));
         actual = Differ.generate(json(sourceEmpty), json(sourceAfter), "json");
         assertEquals(expected3, actual);
-        String expected4 = "{}";
+        String expected4 = "[]";
         actual = Differ.generate(json(sourceEmpty), json(sourceEmpty), "json");
         assertEquals(expected4, actual);
     }
@@ -101,7 +101,7 @@ class DifferTest {
         String expected3 = parseFromTextFile(json(jsonStyle(pathBlank + "emptyBefore")));
         actual = Differ.generate(yml(sourceEmpty), yml(sourceAfter), "json");
         assertEquals(expected3, actual);
-        String expected4 = "{}";
+        String expected4 = "[]";
         actual = Differ.generate(yml(sourceEmpty), yml(sourceEmpty), "json");
         assertEquals(expected4, actual);
     }

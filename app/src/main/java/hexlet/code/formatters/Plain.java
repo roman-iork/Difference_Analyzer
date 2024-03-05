@@ -5,19 +5,20 @@ import java.util.Map;
 
 public final class Plain implements FormatterType {
 
-    public String format(Map<String, List<Object>> difference) {
+    public String format(List<Map<String, Object>> difference) {
         StringBuilder sb = new StringBuilder();
-        for (String key : difference.keySet()) {
-            List<Object> value = difference.get(key);
-            if (value.get(0).equals("removed")) {
-                sb.append("Property '" + key + "' was removed\n");
-            } else if (value.get(0).equals("added")) {
-                sb.append("Property '" + key + "' was added with value: " + convertedValue(value.get(1)) + "\n");
-            } else if (value.get(0).equals("unchanged")) {
+        for (Map<String, Object> element : difference) {
+            if (element.get("diffType").equals("removed")) {
+                sb.append("Property '" + element.get("key") + "' was removed\n");
+            } else if (element.get("diffType").equals("added")) {
+                sb.append("Property '" + element.get("key")
+                        + "' was added with value: " + convertedValue(element.get("new")) + "\n");
+            } else if (element.get("diffType").equals("unchanged")) {
                 continue;
             } else {
-                sb.append("Property '" + key + "' was updated. From " + convertedValue(value.get(1)));
-                sb.append(" to " + convertedValue(value.get(2)) + "\n");
+                sb.append("Property '" + element.get("key")
+                        + "' was updated. From " + convertedValue(element.get("old")));
+                sb.append(" to " + convertedValue(element.get("new")) + "\n");
             }
         }
         return sb.toString().trim();

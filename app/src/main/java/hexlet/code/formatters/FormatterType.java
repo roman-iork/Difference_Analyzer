@@ -4,5 +4,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface FormatterType {
-    String format(Map<String, List<Object>> data) throws Exception;
+    String format(List<Map<String, Object>> data) throws Exception;
 }

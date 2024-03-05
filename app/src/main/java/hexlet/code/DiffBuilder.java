@@ -1,46 +1,49 @@
 package hexlet.code;
 
-import java.util.LinkedHashMap;
-
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.LinkedHashMap;
+
 import java.util.HashSet;
+import java.util.Set;
+import java.util.ArrayList;
 
 public class DiffBuilder {
-    public static Map<String, List<Object>> buildDiff(Map<String, Object> before, Map<String, Object> after) {
+    public static List<Map<String, Object>> buildDiff(Map<String, Object> before, Map<String, Object> after) {
         List<String> keys = sortedAllkeysSet(before, after);
-        Map<String, List<Object>> difference = new LinkedHashMap<>();
+        Map<String, Object> diff = new LinkedHashMap<>();
+        List<Map<String, Object>> diffList = new ArrayList<>();
         for (String key : keys) {
-            List<Object> value = new ArrayList<>();
             if (before.containsKey(key) && !after.containsKey(key)) {
-                value.add("removed");
-                value.add(before.get(key));
-                difference.put(key, value);
+                diff.put("diffType", "removed");
+                diff.put("old", before.get(key));
+                diff.put("key", key);
             } else if (!before.containsKey(key) && after.containsKey(key)) {
-                value.add("added");
-                value.add(after.get(key));
-                difference.put(key, value);
+                diff.put("diffType", "added");
+                diff.put("new", after.get(key));
+                diff.put("key", key);
             } else if (!(before.get(key) == null) && !(after.get(key) == null)
                     && before.get(key).equals(after.get(key))) {
-                difference.put(key, List.of("unchanged", before.get(key)));
+                diff.put("diffType", "unchanged");
+                diff.put("old", before.get(key));
+                diff.put("key", key);
             } else if (before.get(key) == null && after.get(key) == null) {
-                value.add("unchanged");
-                value.add(before.get(key));
-                difference.put(key, value);
+                diff.put("diffType", "unchanged");
+                diff.put("old", before.get(key));
+                diff.put("key", key);
             } else {
-                value.add("changed");
-                value.add(before.get(key));
-                value.add(after.get(key));
-                difference.put(key, value);
+                diff.put("diffType", "changed");
+                diff.put("old", before.get(key));
+                diff.put("new", after.get(key));
+                diff.put("key", key);
             }
+            diffList.add(new LinkedHashMap<>(diff));
+            diff.clear();
         }
-        return difference;
+        return diffList;
     }
 
     private static List<String> sortedAllkeysSet(Map<String, Object> before, Map<String, Object> after) {
-        //here I make list of unique keys of two maps
         List<String> keysBefore = before.keySet().stream().sorted().toList();
         List<String> keysAfter = after.keySet().stream().sorted().toList();
         Set<String> allKeysSet = new HashSet<>(keysBefore);

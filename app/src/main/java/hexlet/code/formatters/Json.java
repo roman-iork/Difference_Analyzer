@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class Json implements FormatterType {
-    public String format(Map<String, List<Object>> difference) throws Exception {
+    public String format(List<Map<String, Object>> difference) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(difference);
     }

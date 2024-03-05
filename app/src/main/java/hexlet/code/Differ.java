@@ -6,24 +6,20 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import hexlet.code.formatters.FormatterType;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
-        //Create Source objects
-        Source sourceFile1 = new Source();
-        sourceFile1.setFileSource(getFile(filepath1));
-        sourceFile1.setFileExtension(getExtension(filepath1));
-        Source sourceFile2 = new Source();
-        sourceFile2.setFileSource(getFile(filepath2));
-        sourceFile2.setFileExtension(getExtension(filepath2));
-        //first parse source files to Maps
-        Map<String, Object> before = Parser.parseToJvObj(sourceFile1, "file");
-        Map<String, Object> after = Parser.parseToJvObj(sourceFile2, "file");
-        Map<String, List<Object>> difference = DiffBuilder.buildDiff(before, after);
-        //choose formatter type
+        Map<String, Object> before = Parser.parseToJvObj(Map.of("source", getFile(filepath1),
+                "mapper", getFileMapper(filepath1)),
+                "file");
+        Map<String, Object> after = Parser.parseToJvObj(Map.of("source", getFile(filepath2),
+                "mapper", getFileMapper(filepath2)),
+                "file");
+        List<Map<String, Object>> difference = DiffBuilder.buildDiff(before, after);
         FormatterType formatter = Formatter.getFormatterType(format);
-        //return required format representation
         return formatter.format(difference);
     }
 
@@ -31,13 +27,12 @@ public class Differ {
         return generate(filepath1, filepath2, "stylish");
     }
 
-    private static File getFile(String filepath) {
+    public static File getFile(String filepath) {
         Path source = Paths.get(filepath);
         return source.toFile();
     }
 
     private static String getExtension(String filepath) throws Exception {
-        String extensionType = "";
         if (filepath.endsWith(".json")) {
             return  "json";
         } else if (filepath.endsWith(".yml")) {
@@ -45,5 +40,17 @@ public class Differ {
         } else {
             throw new Exception("Check file");
         }
+    }
+
+    private static ObjectMapper getFileMapper(String filepath) throws Exception {
+        ObjectMapper mapper;
+        if (getExtension(filepath).equals("json")) {
+            mapper = new ObjectMapper();
+        } else if (getExtension(filepath).equals("yml")) {
+            mapper = new YAMLMapper();
+        } else {
+            throw new Exception("Check extension");
+        }
+        return mapper;
     }
 }

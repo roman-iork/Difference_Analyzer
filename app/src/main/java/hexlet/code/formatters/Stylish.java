@@ -5,19 +5,18 @@ import java.util.Map;
 
 public final class Stylish implements FormatterType {
 
-    public String format(Map<String, List<Object>> difference) {
+    public String format(List<Map<String, Object>> difference) {
         StringBuilder sb = new StringBuilder("{\n");
-        for (String key : difference.keySet()) {
-            List<Object> value = difference.get(key);
-            if (value.get(0).equals("removed")) {
-                sb.append("  - " + key + ": " + value.get(1) + "\n");
-            } else if (value.get(0).equals("added")) {
-                sb.append("  + " + key + ": " + value.get(1) + "\n");
-            } else if (value.get(0).equals("unchanged")) {
-                sb.append("    " + key + ": " + value.get(1) + "\n");
+        for (Map<String, Object> element : difference) {
+            if (element.get("diffType").equals("removed")) {
+                sb.append("  - " + element.get("key") + ": " + element.get("old") + "\n");
+            } else if (element.get("diffType").equals("added")) {
+                sb.append("  + " + element.get("key") + ": " + element.get("new") + "\n");
+            } else if (element.get("diffType").equals("unchanged")) {
+                sb.append("    " + element.get("key") + ": " + element.get("old") + "\n");
             } else {
-                sb.append("  - " + key + ": " + value.get(1) + "\n");
-                sb.append("  + " + key + ": " + value.get(2) + "\n");
+                sb.append("  - " + element.get("key") + ": " + element.get("old") + "\n");
+                sb.append("  + " + element.get("key") + ": " + element.get("new") + "\n");
             }
         }
         sb.append("}");
