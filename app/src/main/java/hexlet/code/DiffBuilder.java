@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 public class DiffBuilder {
     public static List<Map<String, Object>> buildDiff(Map<String, Object> before, Map<String, Object> after) {
-        List<String> keys = sortedAllkeysSet(before, after);
-        Map<String, Object> diff = new LinkedHashMap<>();
+        List<String> keys = sortedAllkeysList(before, after);
         List<Map<String, Object>> diffList = new ArrayList<>();
         for (String key : keys) {
+            Map<String, Object> diff = new LinkedHashMap<>();
             if (before.containsKey(key) && !after.containsKey(key)) {
                 diff.put("diffType", "removed");
                 diff.put("old", before.get(key));
@@ -37,13 +37,12 @@ public class DiffBuilder {
                 diff.put("new", after.get(key));
                 diff.put("key", key);
             }
-            diffList.add(new LinkedHashMap<>(diff));
-            diff.clear();
+            diffList.add(diff);
         }
         return diffList;
     }
 
-    private static List<String> sortedAllkeysSet(Map<String, Object> before, Map<String, Object> after) {
+    private static List<String> sortedAllkeysList(Map<String, Object> before, Map<String, Object> after) {
         List<String> keysBefore = before.keySet().stream().sorted().toList();
         List<String> keysAfter = after.keySet().stream().sorted().toList();
         Set<String> allKeysSet = new HashSet<>(keysBefore);
