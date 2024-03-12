@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -10,12 +10,8 @@ import hexlet.code.formatters.FormatterType;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
-        Map<String, Object> before = Parser.parseToJvObj(Map.of("source", getFile(filepath1),
-                "extension", getExtension(filepath1)),
-                "file");
-        Map<String, Object> after = Parser.parseToJvObj(Map.of("source", getFile(filepath2),
-                "extension", getExtension(filepath2)),
-                "file");
+        Map<String, Object> before = Parser.parseToJvObj(readFile(filepath1), getExtension(filepath1));
+        Map<String, Object> after = Parser.parseToJvObj(readFile(filepath2), getExtension(filepath2));
         List<Map<String, Object>> difference = DiffBuilder.buildDiff(before, after);
         FormatterType formatter = Formatter.getFormatterType(format);
         return formatter.format(difference);
@@ -25,14 +21,14 @@ public class Differ {
         return generate(filepath1, filepath2, "stylish");
     }
 
-    private static File getFile(String filepath) {
-        Path source = Paths.get(filepath);
-        return source.toFile();
-    }
-
     private static String getExtension(String filepath) {
         String[] splitPath = filepath.split("\\.");
         int length = splitPath.length;
         return splitPath[length - 1];
+    }
+
+    private static String readFile(String filePath) throws Exception {
+        Path path = Paths.get(filePath);
+        return Files.readString(path);
     }
 }
