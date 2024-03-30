@@ -28,7 +28,7 @@ public class Differ {
     }
 
     private static String readFile(String filePath) throws Exception {
-        Path path = Paths.get(filePath);
+        Path path = Paths.get(filePath).toAbsolutePath().normalize();
         return Files.readString(path);
     }
 }
