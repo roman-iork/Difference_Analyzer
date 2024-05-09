@@ -12,13 +12,14 @@
 
 #### Difference Analizer Info
 Works as cmd utility. Name of command is **gendiff**  
-Compares to files.  
+Compares two files.  
 Files are choosen through indicating file paths - first original file and then potentially changed one.  
 Acceptable incoming file extensions: json and yml.  
 Outputs in three different representations based on representation style indicated in command option:
 - stylish (default representation), choosen if no style indicated
 - plain text
 - json
+
 Style can be indicated through **-f** and which is followed by **plain** or **json**.  
 For help -h or --help.
 For version -v or --version.
