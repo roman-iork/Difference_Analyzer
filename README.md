@@ -20,8 +20,8 @@ Outputs in three different representations based on representation style indicat
 - plain text
 - json
 
-Style can be indicated through **-f** and which is followed by **plain** or **json**.  
-For help -h or --help.
+Style can be indicated through **-f** which is followed by **plain** or **json**.  
+For help -h or --help.  
 For version -v or --version.
 
 *Example:*
