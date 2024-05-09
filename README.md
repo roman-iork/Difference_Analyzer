@@ -11,26 +11,19 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2fcd653cc993d5428056/test_coverage)](https://codeclimate.com/github/roman-iork/java-project-61/test_coverage)
 
 #### Difference Analizer Info
-Works as cmd utility. Name of command is **gendiff**  
-Compares two files.  
+Compares two files. 
+Works as cmd utility. Name of command is **gendiff**.  
 Files are choosen through indicating file paths - first original file and then potentially changed one.  
 Acceptable incoming file extensions: json and yml.  
+File paths follow gendiff command: **gendiff path1 path2**.  
 Outputs in three different representations based on representation style indicated in command option:
 - stylish (default representation), choosen if no style indicated
 - plain text
 - json
 
-Style can be indicated through **-f** which is followed by **plain** or **json**.  
-For help -h or --help.  
-For version -v or --version.
-
-*Example:*
-
-
-
-
-
-
+Style can be indicated through -f which is followed by *plain* or *json*: **gendiff path1 path2 -f plain**.  
+For help use -h or --help: **gendiff -h**.    
+For version use -V or --version: **gendiff -V**.  
 
 ##### Link to asciinema record Hexlet *Diff Analizer* **Step 5**
 [![asciicast](https://asciinema.org/a/5iJMbe7pWLRLcCnAty3r38PiE.svg)](https://asciinema.org/a/5iJMbe7pWLRLcCnAty3r38PiE)
