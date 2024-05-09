@@ -11,11 +11,11 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2fcd653cc993d5428056/test_coverage)](https://codeclimate.com/github/roman-iork/java-project-61/test_coverage)
 
 #### Difference Analizer Info
-Compares two files. 
+Compares two files.  
 Works as cmd utility. Name of command is **gendiff**.  
-Files are choosen through indicating file paths - first original file and then potentially changed one.  
-Acceptable incoming file extensions: json and yml.  
+Files are choosen through indicating file paths - first original file and then potentially changed one.    
 File paths follow gendiff command: **gendiff path1 path2**.  
+Acceptable incoming file extensions - json and yml.  
 Outputs in three different representations based on representation style indicated in command option:
 - stylish (default representation), choosen if no style indicated
 - plain text
