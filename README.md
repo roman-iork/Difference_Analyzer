@@ -13,8 +13,7 @@
 #### Difference Analizer Info
 Compares two files.  
 Works as cmd utility. Name of command is **gendiff**.  
-Files are choosen through indicating file paths - first original file and then potentially changed one.    
-File paths follow gendiff command: **gendiff path1 path2**.  
+Files are choosen through indicating file paths - first original file and then potentially changed one: **gendiff path1 path2**.  
 Acceptable incoming file extensions - json and yml.  
 Outputs in three different representations based on representation style indicated in command option:
 - stylish (default representation), choosen if no style indicated
