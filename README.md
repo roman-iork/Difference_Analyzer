@@ -21,7 +21,8 @@ Outputs in three different representations based on representation style indicat
 - json
 
 Style can be indicated through -f or --format which is followed by *plain* or *json*:  
-**gendiff path1 path2 -f plain**.  
+**gendiff path1 path2 -f plain**.
+
 For help use -h or --help: **gendiff -h**.    
 For version use -V or --version: **gendiff -V**.  
 
